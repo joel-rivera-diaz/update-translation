@@ -6,7 +6,7 @@ const path = require('path');
 // =============================
 // ===> CHANGE THIS...
 // ...set this to the correct location in you computer
-const translationsFile = '/home/joel/dev_blaccspot/my-bsm-tools-trans/translations.json';
+// const translationsFile = '/home/joel/dev_blaccspot/my-bsm-tools-trans/translations.json';
 // ===> CHANGE THIS...
 // ...if you need to add/remove a translation folder
 const folders = ["de", "es", "fr", "ja", "ko", "pt-BR", "zh-CN", "zh-TW"];
@@ -16,7 +16,7 @@ const folders = ["de", "es", "fr", "ja", "ko", "pt-BR", "zh-CN", "zh-TW"];
 
 function updateJsonKey(jsonFileToModify, dotNotationString) {
   folders.forEach((folder) => {
-    const value = JSON.parse(fs.readFileSync(translationsFile))[folder]
+    const value = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'translations.json')))[folder]
     const filePath = path.join(folder, jsonFileToModify);
 
     if (fs.existsSync(filePath)) {
@@ -28,6 +28,7 @@ function updateJsonKey(jsonFileToModify, dotNotationString) {
 
       // Get the value that will be modified using the dot notation string
       const valueToModify = dotNotationString.split('.').reduce((obj, key) => obj[key], jsonObj);
+      console.log({valueToModify});
       
       // if the property exists...
       // ...assign the new value to the specified property
