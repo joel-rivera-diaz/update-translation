@@ -12,6 +12,7 @@ const translationsFile = '/home/joel/dev_blaccspot/my-bsm-tools-trans/translatio
 const folders = ["de", "es", "fr", "ja", "ko", "pt-BR", "zh-CN", "zh-TW"];
 
 // ----------------------------------------------------------
+// ----------------------------------------------------------
 
 function updateJsonKey(jsonFileToModify, dotNotationString) {
   folders.forEach((folder) => {
