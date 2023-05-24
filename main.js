@@ -21,7 +21,7 @@ function updateJsonKey(jsonFileToModify, dotNotationString) {
 
     if (fs.existsSync(filePath)) {
       // yes! it exists!
-      console.log('file exists');
+      console.log(`file exists -- folder: ${folder}`);
 
       // get file
       let jsonObj = JSON.parse(fs.readFileSync(filePath));
@@ -46,7 +46,7 @@ function updateJsonKey(jsonFileToModify, dotNotationString) {
       console.log(`Property "${dotNotationString}" modified.`);
 
     } else {
-      console.log('no file found');
+      console.log(`no file found -- folder: ${folder}`);
     }
   });
 }
