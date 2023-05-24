@@ -1,18 +1,21 @@
 const fs = require('fs');
 const path = require('path');
 
-// -------
-// Config:
-// -------
+// =============================
+// ------ CONFIGURATION --------
+// =============================
+// ===> CHANGE THIS...
+// ...set this to the correct location in you computer
 const translationsFile = '/home/joel/dev_blaccspot/my-bsm-tools-trans/translations.json';
+// ===> CHANGE THIS...
+// ...if you need to add/remove a translation folder
 const folders = ["de", "es", "fr", "ja", "ko", "pt-BR", "zh-CN", "zh-TW"];
+
+// ----------------------------------------------------------
 
 function updateJsonKey(jsonFileToModify, dotNotationString) {
   folders.forEach((folder) => {
-
-    // get value to assign
     const value = JSON.parse(fs.readFileSync(translationsFile))[folder]
-    
     const filePath = path.join(folder, jsonFileToModify);
 
     if (fs.existsSync(filePath)) {
@@ -21,9 +24,6 @@ function updateJsonKey(jsonFileToModify, dotNotationString) {
 
       // get file
       let jsonObj = JSON.parse(fs.readFileSync(filePath));
-      console.log({
-        jsonObj
-      });
 
       // Get the value that will be modified using the dot notation string
       const valueToModify = dotNotationString.split('.').reduce((obj, key) => obj[key], jsonObj);
@@ -41,10 +41,9 @@ function updateJsonKey(jsonFileToModify, dotNotationString) {
         console.log();
       }
 
-      // Write the modified JSON back to the file
       fs.writeFileSync(filePath, JSON.stringify(jsonObj, null, 2));
-
       console.log(`Property "${dotNotationString}" modified.`);
+
     } else {
       console.log('no file found');
     }
