@@ -10,18 +10,22 @@ const folders = ["de", "es", "fr", "ja", "ko", "pt-BR", "zh-CN", "zh-TW"];
 function updateJsonKey(jsonFileToModify, dotNotationStr) {
   folders.forEach((folder) => {
 
-    const value = JSON.parse(fs.readFileSync(translationsFile)).translations[translationKey]; // .translations ???
-    console.log(value);
+    // get value to assign
+    const value = JSON.parse(fs.readFileSync(translationsFile))[folder]
     
-    // const filePath = path.join(folder, jsonFileToModify);
+    const filePath = path.join(folder, jsonFileToModify);
 
-    // if (fs.existsSync(filePath)) {
-    //   const fileContent = JSON.parse(fs.readFileSync(filePath));
-    //   const keys = dotNotationStr.split('.');
-    //   keys.slice(0, -1).forEach((key) => fileContent = fileContent[key]);
-    //   fileContent[keys[keys.length - 1]] = value;
-    //   fs.writeFileSync(filePath, JSON.stringify(fileContent, null, 2));
-    // }
+    if (fs.existsSync(filePath)) {
+      console.log('file exists');
+
+      let fileContent = JSON.parse(fs.readFileSync(filePath));
+      const keys = dotNotationStr.split('.');
+      keys.slice(0, -1).forEach((key) => fileContent = fileContent[key]);
+      fileContent[keys[keys.length - 1]] = value;
+      fs.writeFileSync(filePath, JSON.stringify(fileContent, null, 2));
+    } else {
+      console.log('no file found');
+    }
   });
 }
 
