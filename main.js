@@ -15,8 +15,10 @@ const folders = ["de", "es", "fr", "ja", "ko", "pt-BR", "zh-CN", "zh-TW"];
 // ----------------------------------------------------------
 
 function updateJsonKey(jsonFileToModify, dotNotationString) {
+  let valuesJson = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'translations.json')));
+
   folders.forEach((folder) => {
-    const value = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'translations.json')))[folder]
+    const value = valuesJson[folder]
     const filePath = path.join(folder, jsonFileToModify);
 
     if (fs.existsSync(filePath)) {
@@ -26,9 +28,8 @@ function updateJsonKey(jsonFileToModify, dotNotationString) {
       // get file
       let jsonObj = JSON.parse(fs.readFileSync(filePath));
 
-      // Get the value that will be modified using the dot notation string
+      // Get the 'old' value that will be modified
       const valueToModify = dotNotationString.split('.').reduce((obj, key) => obj[key], jsonObj);
-      console.log({valueToModify});
       
       // if the property exists...
       // ...assign the new value to the specified property
