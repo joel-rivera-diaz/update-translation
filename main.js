@@ -25,7 +25,6 @@ function updateJsonKey(jsonFileToModify, dotNotationString) {
         jsonObj
       });
 
-      // TODO: fix all the following code
       // Get the value that will be modified using the dot notation string
       const valueToModify = dotNotationString.split('.').reduce((obj, key) => obj[key], jsonObj);
       
@@ -52,4 +51,4 @@ function updateJsonKey(jsonFileToModify, dotNotationString) {
   });
 }
 
-updateJsonKey(process.argv[2], process.argv[3], process.argv[4]);
+updateJsonKey(process.argv[2], process.argv[3]);
